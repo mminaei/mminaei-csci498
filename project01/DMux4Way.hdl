@@ -15,6 +15,20 @@ CHIP DMux4Way {
     OUT a, b, c, d;
 
     PARTS:
-    // Implementation missing.
+    Not(in=sel[1], out=nsel1);
+    Not(in=sel[0], out=nsel0);
+
+    Or(a=sel[0], b=sel[1], out=a11);
+    Not(in=a11, out=a1); 
+    And(a=sel[0], b=nsel1, out=b1);
+    And(a=nsel0, b=sel[1], out=c1);
+    And(a=sel[0], b=sel[1], out=d1);
+
+    And(a=a1, b=in, out=a);
+    And(a=b1, b=in, out=b);
+    And(a=c1, b=in, out=c);
+    And(a=d1, b=in, out=d);
+
+
 }
 
